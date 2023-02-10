@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -291,35 +292,38 @@ namespace Winners_ITI
                 switch (FeeTypeID)
                 {
                     case 1:
-                       feeType = "ADMISSION FEE";
+                       feeType = "Admission Fee";
                         break;
                     case 2:
-                       feeType = "CAUTION FEE";
+                       feeType = "Caution Fee";
                         break;
                     case 3:
-                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(1) + " SEMESTER FEE";
+                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(1) + " Semester Fee";
                         break;
                     case 4:
-                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(2) + " SEMESTER FEE";
+                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(2) + " Semester Fee";
                         break;
                     case 5:
-                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(3) + " SEMESTER FEE";
+                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(3) + " Semester Fee";
                         break;
                     case 6:
-                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(4) + " SEMESTER FEE";
+                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(4) + " Semester Fee";
                         break;
                     case 7:
-                        string numberOfInstallment = Convert.ToString(objPymt.GetInstallmentNumber(Convert.ToString(cmbStudent.SelectedValue)));
-                       feeType = Humanizer.OrdinalizeExtensions.Ordinalize(numberOfInstallment) + " MONTH INSTALLMENT";
+                        DataRow drNumberOfInstallment =objPymt.GetInstallmentNumber(Convert.ToString(cmbStudent.SelectedValue),pymtID);
+                        if(Convert.ToString(drNumberOfInstallment[0] ) == Convert.ToString(drNumberOfInstallment[1]))
+                            feeType = Humanizer.OrdinalizeExtensions.Ordinalize(Convert.ToString(drNumberOfInstallment[0])) + " Installment";
+                        else
+                            feeType = Humanizer.OrdinalizeExtensions.Ordinalize(Convert.ToString(drNumberOfInstallment[1])) + " to " + Humanizer.OrdinalizeExtensions.Ordinalize(Convert.ToString(drNumberOfInstallment[0])) + " Installment";
                         break;
                     case 8:
-                       feeType = "RECORD FEE";
+                       feeType = "Record Fee";
                         break;
                     case 9:
-                       feeType = "UNIFORM FEE";
+                       feeType = "Uniform Fee";
                         break;
                     default:
-                       feeType = "INVALID FEE";
+                       feeType = "Invalid Fee";
                         break;
                 }
 
@@ -354,7 +358,8 @@ namespace Winners_ITI
                     course = course.Substring(0, course.IndexOf('-'));
                 objPrintData.Course = course;
 
-                string AmtInWords = Humanizer.NumberToWordsExtension.ToWords(Convert.ToInt32(amtInDigits), System.Globalization.CultureInfo.CurrentCulture);
+                TextInfo myTI = new CultureInfo("en-US", false).TextInfo;
+                string AmtInWords = myTI.ToTitleCase(Humanizer.NumberToWordsExtension.ToWords(Convert.ToInt32(amtInDigits), System.Globalization.CultureInfo.CurrentCulture));
                 objPrintData.AmountinWords = AmtInWords;
                 objPrintData.AmountinDigits = Convert.ToDecimal(amtInDigits);
                 txtReportText.Text = rptText.Replace("<pName>", Convert.ToString(dr["Name"]).ToUpper()).Replace("<pAmtWords>", AmtInWords).Replace("<pAmtDigit>", Convert.ToString( amtInDigits)).Replace("<pFeeType>", feeType).Replace("<pCourse>", Convert.ToString(dr["Trade"]).ToUpper()).Replace("<StartYear>", course);
@@ -454,11 +459,18 @@ namespace Winners_ITI
             lblAmountDue.Text = "0";
 
             FillFeeDetailForTheStudent();
+           
             tableLayoutPanel2.Visible = true;
             
             try
             {
                 dataGridView1.DataSource = objPymt.GetFeePaidForPrint(Convert.ToString(cmbStudent.SelectedValue));
+                dataGridView1.Columns[4].ReadOnly = true;
+                dataGridView1.Columns[5].ReadOnly = true;
+                dataGridView1.Columns[6].ReadOnly = true;
+                dataGridView1.Columns[7].ReadOnly = true;
+                dataGridView1.Columns[8].ReadOnly = true;
+                dataGridView1.Columns[9].ReadOnly = true;
             }
             catch (Exception ex)
             {
@@ -535,6 +547,8 @@ namespace Winners_ITI
                 txtUniformFeeDue.Text = Convert.ToString(Convert.ToDecimal(txtUniformFeeTot.Text) - Convert.ToDecimal(txtUniformFeePaid.Text));
 
                 txtFeeConcession.Text = Convert.ToString(objStudent.GetConcessionFee(Convert.ToString(cmbStudent.SelectedValue)));
+
+                
             }
             catch (Exception ex)
             {
@@ -565,7 +579,40 @@ namespace Winners_ITI
                 }
                 if (e.ColumnIndex == 1 && e.RowIndex != -1)
                 {
-                    DialogResult rslt = MessageBox.Show("Are you sure you want to process the migration?", "Migration", MessageBoxButtons.YesNo);
+                    dataGridView1.Columns[5].ReadOnly = false;
+                    dataGridView1.Columns[6].ReadOnly = false;
+                    dataGridView1.Rows[e.RowIndex].Cells[5].Selected = true;
+                    dataGridView1.Select();
+                }
+                if (e.ColumnIndex == 2 && e.RowIndex != -1)
+                {
+                    if( dataGridView1.Columns[5].ReadOnly== false)
+                    {
+                        DataGridViewTextBoxCell cellFeeType = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells["FeeType ID"];
+                        DataGridViewTextBoxCell cellPymtID = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells["Payment ID"];
+                        DataGridViewTextBoxCell cellFeeAmount = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells["Fee Amount"];
+                        DataGridViewTextBoxCell cellFeeDate = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells["Date"];
+
+                        PropertyLayer.Payment_Details objPaymtProp = new PropertyLayer.Payment_Details();
+                        objPaymtProp.Pymt_ID = Convert.ToInt32(cellPymtID.Value);
+                        objPaymtProp.Stud_ID = Convert.ToString(cmbStudent.SelectedValue);
+                        objPaymtProp.Fee_Type = Convert.ToInt16(cellFeeType.Value);
+                        objPaymtProp.Batch_ID = Convert.ToInt32(cmbBatch.SelectedValue);
+                        objPaymtProp.Trade_ID = Convert.ToInt32(cmbTrade.SelectedValue);
+
+                        objPaymtProp.Fee_Amount = Convert.ToDecimal(cellFeeAmount.Value);
+                        objPaymtProp.Date = Convert.ToDateTime(cellFeeDate.Value);
+
+                        objPymt.UpdateData(objPaymtProp);
+
+                        dataGridView1.Columns[1].ReadOnly = true;
+                        dataGridView1.Columns[2].ReadOnly = true;
+                    }
+                }
+
+                if (e.ColumnIndex == 3 && e.RowIndex != -1)
+                {
+                    DialogResult rslt = MessageBox.Show("Are you sure you want to delete?", "Migration", MessageBoxButtons.YesNo);
                     if (rslt == DialogResult.Yes)
                     {
                         DataGridViewTextBoxCell cellFeeType = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells["FeeType ID"];

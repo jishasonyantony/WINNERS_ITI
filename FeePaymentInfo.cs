@@ -293,8 +293,8 @@ namespace Winners_ITI
             { 
                 if (Validate() == true)
                 {
-                    if (Convert.ToInt32(lblPaidFee.Text) == Convert.ToInt32(lblFeeAdjustmentTTotal.Text))
-                    {
+                    //if (Convert.ToInt32(lblPaidFee.Text) == Convert.ToInt32(lblFeeAdjustmentTTotal.Text))
+                    //{
 
                         PropertyLayer.Student_FeeDetails objProp = new PropertyLayer.Student_FeeDetails();
                         objProp.Stud_ID = Convert.ToString(cmbStudent.SelectedValue);
@@ -311,11 +311,11 @@ namespace Winners_ITI
                         objStudentFeeDetails.UpdateDataForMigratedStudents(objProp);
                         FillFeeDetailForTheStudent();
                         ReverseEditFeeForMigratedStudents();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Revised fee mismatch. Cannot proceed.");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Revised fee mismatch. Cannot proceed.");
+                    //}
                 }
             }
             catch (Exception ex)

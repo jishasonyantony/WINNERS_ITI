@@ -98,9 +98,9 @@ namespace Winners_ITI
 
                 objProp.Registration_Fee_Dt = dtAdmissionFeeDate.Value;
                 objProp.Caution_Fee_Dt = dtCautionFeeDate.Value;
-                objProp.Sem1_Fee_Dt = dtCautionFeeDate.Value;
-                objProp.Sem2_Fee_Dt = dtSem1FeeDate.Value;
-                objProp.Sem3_Fee_Dt = dtSem2FeeDate.Value;
+                objProp.Sem1_Fee_Dt = dtSem1FeeDate.Value;
+                objProp.Sem2_Fee_Dt = dtSem2FeeDate.Value;
+                objProp.Sem3_Fee_Dt = dtSem3FeeDate.Value;
                 objProp.Sem4_Fee_Dt = dtSem4FeeDate.Value;
                 objProp.Monthly_Fee_Dt = dtMonthlyFeeDate.Value;
 
@@ -129,6 +129,7 @@ namespace Winners_ITI
                 objProp.TF_ID = Convert.ToInt32(txtID.Text.Trim());
                 objProp.Trade_ID = Convert.ToInt32(cmbTrade.SelectedValue);
                 objProp.Batch_ID = Convert.ToInt32(cmbBatch.SelectedValue);
+                objProp.Inst_ID = Common.Institution;
                 objProp.Registration_Fee = txtAdmissionFee.Value;
                 objProp.Caution_Fee = txtCautioinFee.Value;
                 objProp.Sem1_Fee = Convert.ToDecimal(txtSem1.Text.Trim());
@@ -142,9 +143,9 @@ namespace Winners_ITI
 
                 objProp.Registration_Fee_Dt = dtAdmissionFeeDate.Value;
                 objProp.Caution_Fee_Dt = dtCautionFeeDate.Value;
-                objProp.Sem1_Fee_Dt = dtCautionFeeDate.Value;
-                objProp.Sem2_Fee_Dt = dtSem1FeeDate.Value;
-                objProp.Sem3_Fee_Dt = dtSem2FeeDate.Value;
+                objProp.Sem1_Fee_Dt = dtSem1FeeDate.Value;
+                objProp.Sem2_Fee_Dt = dtSem2FeeDate.Value;
+                objProp.Sem3_Fee_Dt = dtSem3FeeDate.Value;
                 objProp.Sem4_Fee_Dt = dtSem4FeeDate.Value;
                 objProp.Monthly_Fee_Dt = dtMonthlyFeeDate.Value;
 

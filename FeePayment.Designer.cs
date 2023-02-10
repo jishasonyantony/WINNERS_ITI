@@ -31,6 +31,7 @@ namespace Winners_ITI
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbBatch = new System.Windows.Forms.ComboBox();
             this.dtpPymtDt = new System.Windows.Forms.DateTimePicker();
             this.label25 = new System.Windows.Forms.Label();
@@ -94,8 +95,6 @@ namespace Winners_ITI
             this.txtFeeConcession = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.lnkPrint = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Delete = new System.Windows.Forms.DataGridViewLinkColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtReportText = new System.Windows.Forms.RichTextBox();
             this.btnPrint = new System.Windows.Forms.Button();
@@ -110,6 +109,10 @@ namespace Winners_ITI
             this.lblAmountDue = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblerror = new System.Windows.Forms.Label();
+            this.lnkPrint = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Edit = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Save = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Delete = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.txtFeeAmount)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -813,6 +816,8 @@ namespace Winners_ITI
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.lnkPrint,
+            this.Edit,
+            this.Save,
             this.Delete});
             this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(110)))), ((int)(((byte)(130)))));
             this.dataGridView1.Location = new System.Drawing.Point(13, 13);
@@ -821,29 +826,6 @@ namespace Winners_ITI
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // lnkPrint
-            // 
-            this.lnkPrint.ActiveLinkColor = System.Drawing.Color.Empty;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            this.lnkPrint.DefaultCellStyle = dataGridViewCellStyle1;
-            this.lnkPrint.HeaderText = "";
-            this.lnkPrint.LinkColor = System.Drawing.Color.Blue;
-            this.lnkPrint.Name = "lnkPrint";
-            this.lnkPrint.Text = "Preview";
-            this.lnkPrint.ToolTipText = "Preview";
-            this.lnkPrint.UseColumnTextForLinkValue = true;
-            // 
-            // Delete
-            // 
-            this.Delete.ActiveLinkColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            this.Delete.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Delete.HeaderText = "";
-            this.Delete.Name = "Delete";
-            this.Delete.Text = "Delete";
-            this.Delete.ToolTipText = "Delete";
-            this.Delete.UseColumnTextForLinkValue = true;
             // 
             // groupBox2
             // 
@@ -1004,6 +986,48 @@ namespace Winners_ITI
             this.lblerror.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblerror.Visible = false;
             // 
+            // lnkPrint
+            // 
+            this.lnkPrint.ActiveLinkColor = System.Drawing.Color.Empty;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            this.lnkPrint.DefaultCellStyle = dataGridViewCellStyle1;
+            this.lnkPrint.HeaderText = "";
+            this.lnkPrint.LinkColor = System.Drawing.Color.Blue;
+            this.lnkPrint.Name = "lnkPrint";
+            this.lnkPrint.Text = "Preview";
+            this.lnkPrint.ToolTipText = "Preview";
+            this.lnkPrint.UseColumnTextForLinkValue = true;
+            // 
+            // Edit
+            // 
+            this.Edit.ActiveLinkColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            this.Edit.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Edit.HeaderText = "";
+            this.Edit.Name = "Edit";
+            this.Edit.Text = "Edit";
+            this.Edit.ToolTipText = "Edit";
+            this.Edit.UseColumnTextForLinkValue = true;
+            // 
+            // Save
+            // 
+            this.Save.HeaderText = "";
+            this.Save.Name = "Save";
+            this.Save.Text = "Save";
+            this.Save.ToolTipText = "Save";
+            this.Save.UseColumnTextForLinkValue = true;
+            // 
+            // Delete
+            // 
+            this.Delete.ActiveLinkColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            this.Delete.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Delete.HeaderText = "";
+            this.Delete.Name = "Delete";
+            this.Delete.Text = "Delete";
+            this.Delete.ToolTipText = "Delete";
+            this.Delete.UseColumnTextForLinkValue = true;
+            // 
             // FeePayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -1136,6 +1160,8 @@ namespace Winners_ITI
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox txtFeeConcession;
         private System.Windows.Forms.DataGridViewLinkColumn lnkPrint;
+        private System.Windows.Forms.DataGridViewLinkColumn Edit;
+        private System.Windows.Forms.DataGridViewLinkColumn Save;
         private System.Windows.Forms.DataGridViewLinkColumn Delete;
     }
 }

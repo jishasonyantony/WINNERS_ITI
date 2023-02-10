@@ -783,7 +783,6 @@ namespace Winners_ITI
             // 
             // txtCautionFeeAdj
             // 
-            this.txtCautionFeeAdj.Enabled = false;
             this.txtCautionFeeAdj.Location = new System.Drawing.Point(717, 76);
             this.txtCautionFeeAdj.Name = "txtCautionFeeAdj";
             this.txtCautionFeeAdj.Size = new System.Drawing.Size(100, 28);
