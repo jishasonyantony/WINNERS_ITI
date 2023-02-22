@@ -582,7 +582,6 @@ namespace Winners_ITI
                     dataGridView1.Columns[5].ReadOnly = false;
                     dataGridView1.Columns[6].ReadOnly = false;
                     dataGridView1.Rows[e.RowIndex].Cells[5].Selected = true;
-                    dataGridView1.Select();
                 }
                 if (e.ColumnIndex == 2 && e.RowIndex != -1)
                 {
@@ -605,8 +604,18 @@ namespace Winners_ITI
 
                         objPymt.UpdateData(objPaymtProp);
 
-                        dataGridView1.Columns[1].ReadOnly = true;
-                        dataGridView1.Columns[2].ReadOnly = true;
+                        dataGridView1.Columns[5].ReadOnly = true;
+                        dataGridView1.Columns[6].ReadOnly = true;
+                        try
+                        {
+                            dataGridView1.DataSource = objPymt.GetFeePaidForPrint(Convert.ToString(cmbStudent.SelectedValue));
+                            FillFeeDetailForTheStudent();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        MessageBox.Show("Fee info updated successfully");
                     }
                 }
 
